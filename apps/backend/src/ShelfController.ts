@@ -1,7 +1,11 @@
 import { Shelf, Prisma, PrismaClient } from '@prisma/client'
 import bodyParser from 'body-parser';
 import { Router } from 'express';
+import { TestData } from './testData';
 
+export interface CreateShelfDto extends Omit<Shelf, 'id' | 'createdAt' | 'updatedAt'> { }
+export interface UpdateShelfDto extends Partial<CreateShelfDto> { }
+export type ShelfTestData = TestData<Shelf, CreateShelfDto, UpdateShelfDto>;
 
 export class ShelfController {
   model: Prisma.ShelfDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
@@ -18,11 +22,11 @@ export class ShelfController {
     return this.model.findUnique({ where: { id } });
   }
 
-  create(data: Shelf) {
+  create(data: CreateShelfDto) {
     return this.model.create({ data });
   }
 
-  update(id: number, data: Shelf) {
+  update(id: number, data: UpdateShelfDto) {
     return this.model.update({ data, where: { id } })
   }
 
