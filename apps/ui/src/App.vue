@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ItemController } from './data/itemController';
+import { ItemController } from './data/ItemController';
 import ItemCard from './components/ItemCard.vue';
 import ScrollBox from './components/ScrollBox.vue';
 import { Ref } from 'vue';
@@ -7,7 +7,7 @@ import { Item } from './data/dbModels';
 
 const itemController = ItemController.getInstance();
 
-const items: Ref<Item[]> = itemController.getItems();
+const items: Ref<Item[]> = itemController.findAll();
 
 </script>
 
