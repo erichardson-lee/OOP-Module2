@@ -1,7 +1,10 @@
 import { Item } from "./dbModels";
 import { RestController } from "./RestController";
 
-export class ItemController extends RestController<Item, Item, Partial<Item>> {
+export interface CreateItemDto extends Omit<Item, 'id' | 'createdAt' | 'updatedAt'> { }
+export interface UpdateItemDto extends Partial<CreateItemDto> { }
+
+export class ItemController extends RestController<Item, CreateItemDto, UpdateItemDto> {
   private static instance: ItemController;
 
   constructor() {
