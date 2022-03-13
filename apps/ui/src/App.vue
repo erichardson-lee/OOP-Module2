@@ -31,15 +31,19 @@ const items: Ref<Item[]> = itemController.findAll();
   <div id="shelves" class="grid-item">
     <h1>Shelves</h1>
     <div>
-      <button class="pa-0 mx-1" :disabled="((currentShelf - 1) < 0)" @click="currentShelf--">⬅️</button>
       <button
-        class="pa-0 mx-1"
+        class="pa-none mx-1 text-xl"
+        :disabled="((currentShelf - 1) < 0)"
+        @click="currentShelf--"
+      >⬅️</button>
+      <button
+        class="pa-none mx-1 text-xl"
         :disabled="((currentShelf + 1) >= shelfs.length)"
         @click="currentShelf++"
       >➡️</button>
     </div>
     <hr />
-    <shelf-view :shelf="shelfs[currentShelf]" />
+    <shelf-view :shelf="shelfs[currentShelf]" :key="currentShelf" />
   </div>
 </template>
 

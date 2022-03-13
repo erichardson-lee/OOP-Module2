@@ -5,7 +5,7 @@
     <span class="weight">{{ item.weight }}</span>
     <div class="buttons">
       <button class="btn" @click="onClick">Edit</button>
-      <button class="btn" @click="onClick">Delete</button>
+      <button class="btn" @click="deleteClick">Delete</button>
     </div>
   </div>
 </template>
@@ -13,6 +13,9 @@
 <script lang="ts" setup>
 import { PropType } from 'vue'
 import type { Item } from '../data/dbModels';
+import { ItemController } from '../data/ItemController';
+
+const itemController = ItemController.getInstance();
 
 const props = defineProps(
   {
@@ -25,6 +28,7 @@ const props = defineProps(
 
 const onClick = () => console.log("ping")
 
+const deleteClick = () => itemController.delete(props.item.id);
 </script>
 
 <style scoped>

@@ -6,7 +6,7 @@ export class RestController<Entity = any, CreateEntityDto = Entity, UpdateEntity
 
   constructor(private entityName: string) { }
 
-  public findAll(): Ref<Entity[]> {
+  public loadAll() {
     fetch(`/api/${this.entityName}`, { method: 'GET' }).then((response) => {
       if (response.status !== 200) {
         console.error(`Error fetching ${this.entityName}s`);
@@ -17,6 +17,10 @@ export class RestController<Entity = any, CreateEntityDto = Entity, UpdateEntity
         })
       }
     })
+  }
+
+  public findAll(): Ref<Entity[]> {
+    this.loadAll()
 
     return this.entities;
   }
@@ -31,18 +35,21 @@ export class RestController<Entity = any, CreateEntityDto = Entity, UpdateEntity
     }).catch((err) => {
       console.error(err);
     });
+
+    this.loadAll()
   }
 
-  public async delete(id: string | number, entity: Entity): Promise<void> {
+  public async delete(id: string | number): Promise<void> {
     await fetch(`/api/${this.entityName}/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(entity)
     }).catch((err) => {
       console.error(err);
     });
+
+    this.loadAll()
   }
 
   public async update(id: string | number, entity: Entity): Promise<void> {
@@ -55,6 +62,8 @@ export class RestController<Entity = any, CreateEntityDto = Entity, UpdateEntity
     }).catch((err) => {
       console.error(err);
     });
+
+    this.loadAll()
   }
 
   public async find(id: string | number): Promise<Entity | null> {
