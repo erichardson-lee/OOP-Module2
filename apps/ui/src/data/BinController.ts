@@ -17,5 +17,4 @@ export class BinController extends RestController<Bin, CreateBinDto, UpdateBinDt
     }
     return BinController.instance;
   }
-
 }

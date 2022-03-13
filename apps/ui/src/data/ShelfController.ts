@@ -17,5 +17,4 @@ export class ShelfController extends RestController<Shelf, CreateShelfDto, Updat
     }
     return ShelfController.instance;
   }
-
 }

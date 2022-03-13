@@ -1,7 +1,7 @@
 import { Ref, ref } from "vue";
 
 
-export abstract class RestController<Entity = any, CreateEntityDto = Entity, UpdateEntityDto = Partial<CreateEntityDto>> {
+export class RestController<Entity = any, CreateEntityDto = Entity, UpdateEntityDto = Partial<CreateEntityDto>> {
   private entities: Ref<Entity[]> = ref([]);
 
   constructor(private entityName: string) { }
