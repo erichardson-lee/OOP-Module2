@@ -69,7 +69,7 @@ describe('BinController', () => {
   describe('.create', () => {
     it('Should insert correct data to the database', () => {
 
-      //@ts-expect-error Mock Typings are weird
+      //@ts-ignore Mock Typings are weird
       mockCtx.prisma.bin.create.mockResolvedValueOnce(TestData.single.data);
 
       expect(binController.create(TestData.single.createData)).resolves.toEqual(TestData.single.data);
