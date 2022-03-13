@@ -8,7 +8,7 @@ export class ShelfController extends RestController<Shelf, CreateShelfDto, Updat
   private static instance: ShelfController;
 
   constructor() {
-    super('items');
+    super('shelves');
   }
 
   public static getInstance(): ShelfController {

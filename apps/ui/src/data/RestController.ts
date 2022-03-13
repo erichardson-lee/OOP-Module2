@@ -7,7 +7,7 @@ export class RestController<Entity = any, CreateEntityDto = Entity, UpdateEntity
   constructor(private entityName: string) { }
 
   public findAll(): Ref<Entity[]> {
-    fetch('/api/', { method: 'GET' }).then((response) => {
+    fetch(`/api/${this.entityName}`, { method: 'GET' }).then((response) => {
       if (response.status !== 200) {
         console.error(`Error fetching ${this.entityName}s`);
       }

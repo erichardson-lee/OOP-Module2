@@ -1,0 +1,29 @@
+#app {
+  display: grid;
+  grid-template-columns: 600px auto;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#itemList {
+  grid-column: 1;
+  background-color: #3b523b;
+  border-right: 3px solid #000;
+}
+#shelves {
+  grid-column: 2;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-item {
+  height: 100vh;
+  padding: 1rem;
+  margin: 0;
+}

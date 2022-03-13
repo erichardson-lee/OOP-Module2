@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import { ItemController } from './data/ItemController';
+import { ShelfController } from './data/ShelfController'
+
 import ItemCard from './components/ItemCard.vue';
 import ScrollBox from './components/ScrollBox.vue';
-import { Ref } from 'vue';
+
+
+import { ref, Ref } from 'vue';
 import { Item } from './data/dbModels';
+import ShelfView from './components/ShelfView.vue';
 
 const itemController = ItemController.getInstance();
+const shelfController = ShelfController.getInstance();
+
+const shelfs = shelfController.findAll();
+
+const currentShelf = ref(0);
 
 const items: Ref<Item[]> = itemController.findAll();
 
@@ -20,37 +30,18 @@ const items: Ref<Item[]> = itemController.findAll();
   </div>
   <div id="shelves" class="grid-item">
     <h1>Shelves</h1>
+    <div>
+      <button class="pa-0 mx-1" :disabled="((currentShelf - 1) < 0)" @click="currentShelf--">⬅️</button>
+      <button
+        class="pa-0 mx-1"
+        :disabled="((currentShelf + 1) >= shelfs.length)"
+        @click="currentShelf++"
+      >➡️</button>
+    </div>
+    <hr />
+    <shelf-view :shelf="shelfs[currentShelf]" />
   </div>
 </template>
 
-<style>
-#app {
-  display: grid;
-  grid-template-columns: 600px auto;
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-#itemList {
-  grid-column: 1;
-  background-color: #3b523b;
-  border-right: 3px solid #000;
-}
-#shelves {
-  grid-column: 2;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-}
-
-.grid-item {
-  height: 100vh;
-  padding: 1rem;
-  margin: 0;
-}
+<style src="./app.css">
 </style>

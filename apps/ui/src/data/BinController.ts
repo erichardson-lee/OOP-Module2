@@ -8,7 +8,7 @@ export class BinController extends RestController<Bin, CreateBinDto, UpdateBinDt
   private static instance: BinController;
 
   constructor() {
-    super('items');
+    super('bins');
   }
 
   public static getInstance(): BinController {

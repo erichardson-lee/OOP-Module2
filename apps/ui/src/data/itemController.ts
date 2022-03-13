@@ -17,5 +17,4 @@ export class ItemController extends RestController<Item, CreateItemDto, UpdateIt
     }
     return ItemController.instance;
   }
-
 }
