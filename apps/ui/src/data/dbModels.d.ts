@@ -7,6 +7,7 @@
 export type Item = {
   id: number
   name: string
+  description?: string
   weight: number
   createdAt: Date
   updatedAt: Date
@@ -19,7 +20,7 @@ export type Item = {
 export type Bin = {
   id: number
   name: string
-  itemId: number
+  itemId: number | null
   shelfId: number | null
   shelfX: number | null
   shelfY: number | null
