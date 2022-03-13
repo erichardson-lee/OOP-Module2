@@ -1,9 +1,12 @@
 import { Bin, Prisma, PrismaClient } from '@prisma/client'
 import bodyParser from 'body-parser';
 import { Router } from 'express';
+import { TestData } from './testData';
 
 export interface CreateBinDto extends Omit<Bin, 'id' | 'createdAt' | 'updatedAt'> { }
 export interface UpdateBinDto extends Partial<CreateBinDto> { }
+export type BinTestData = TestData<Bin, CreateBinDto, UpdateBinDto>;
+
 
 export class BinController {
   model: Prisma.BinDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;

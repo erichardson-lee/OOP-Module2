@@ -1,7 +1,55 @@
 import { Bin } from "@prisma/client";
-import { mock } from "jest-mock-extended";
-import { BinController, CreateBinDto } from "./BinController";
+import { BinController, BinTestData } from "./BinController";
 import { Context, MockContext, createMockContext } from './context'
+import { TestData } from "./testData";
+
+const TestData = <BinTestData>({
+  list: [
+    {
+      id: 1,
+      name: 'Test Bin 1',
+      itemId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      shelfId: null,
+      shelfX: null,
+      shelfY: null
+    },
+    {
+      id: 2,
+      name: 'Test Bin 2',
+      itemId: 2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      shelfId: null,
+      shelfX: null,
+      shelfY: null
+    }
+  ],
+
+  single: {
+    createData: {
+      itemId: 1,
+      name: 'Test Bin 1',
+      shelfId: null,
+      shelfX: null,
+      shelfY: null
+    },
+    data: {
+      id: 1,
+      itemId: 1,
+      name: 'Test Bin 1',
+      shelfId: null,
+      shelfX: null,
+      shelfY: null,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    updateData: {
+      name: 'Test Bin 1',
+    }
+  }
+});
 
 describe('BinController', () => {
   let binController: BinController;
@@ -21,113 +69,44 @@ describe('BinController', () => {
 
   describe('.create', () => {
     it('Should insert correct data to the database', () => {
-      const binDto: CreateBinDto = {
-        itemId: 1,
-        name: '',
-        shelfId: null,
-        shelfX: null,
-        shelfY: null
-      };
-
-      const bin: Bin = Object.assign(binDto, {
-        id: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      } as Omit<Bin, keyof CreateBinDto>);
 
       //@ts-expect-error Mock Typings are weird
-      mockCtx.prisma.bin.create.mockResolvedValueOnce(bin);
+      mockCtx.prisma.bin.create.mockResolvedValueOnce(TestData.single.data);
 
-      expect(binController.create(binDto)).resolves.toEqual(bin);
+      expect(binController.create(TestData.single.createData)).resolves.toEqual(TestData.single.data);
     })
   });
 
 
   describe('.getAll', () => {
     it('Should collect and return all data from the database', () => {
-      const bins: Bin[] = [
-        {
-          id: 1,
-          itemId: 1,
-          name: 'Bin1',
-          shelfId: null,
-          shelfX: null,
-          shelfY: null,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          id: 2,
-          itemId: 2,
-          name: 'Bin2',
-          shelfId: null,
-          shelfX: null,
-          shelfY: null,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-      ];
+      mockCtx.prisma.bin.findMany.mockResolvedValueOnce(TestData.list);
 
-      mockCtx.prisma.bin.findMany.mockResolvedValueOnce(bins);
-
-      expect(binController.getAll()).resolves.toEqual(bins);
+      expect(binController.getAll()).resolves.toEqual(TestData.list);
     })
   });
 
   describe('.getById', () => {
     it('Should collect and return data from the database', () => {
-      const bin: Bin = {
-        id: 1,
-        itemId: 1,
-        name: 'Bin1',
-        shelfId: null,
-        shelfX: null,
-        shelfY: null,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+      mockCtx.prisma.bin.findUnique.mockResolvedValueOnce(TestData.single.data);
 
-      mockCtx.prisma.bin.findUnique.mockResolvedValueOnce(bin);
-
-      expect(binController.getById(1)).resolves.toEqual(bin);
+      expect(binController.getById(TestData.single.data.id)).resolves.toEqual(TestData.single.data);
     })
   });
 
   describe('.update', () => {
     it('Should update data in the database', () => {
-      const bin: Bin = {
-        id: 1,
-        itemId: 1,
-        name: 'Bin1',
-        shelfId: null,
-        shelfX: null,
-        shelfY: null,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+      mockCtx.prisma.bin.update.mockResolvedValueOnce(TestData.single.data);
 
-      mockCtx.prisma.bin.update.mockResolvedValueOnce(bin);
-
-      expect(binController.update(1, bin)).resolves.toEqual(bin);
+      expect(binController.update(TestData.single.data.id, TestData.single.updateData)).resolves.toEqual(TestData.single.data);
     })
   });
 
   describe('.delete', () => {
     it('Should delete data from the database', () => {
-      const bin: Bin = {
-        id: 1,
-        itemId: 1,
-        name: 'Bin1',
-        shelfId: null,
-        shelfX: null,
-        shelfY: null,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+      mockCtx.prisma.bin.delete.mockResolvedValueOnce(TestData.single.data);
 
-      mockCtx.prisma.bin.delete.mockResolvedValueOnce(bin);
-
-      expect(binController.delete(1)).resolves.toEqual(bin);
+      expect(binController.delete(TestData.single.data.id)).resolves.toEqual(TestData.single.data);
     })
   });
 
