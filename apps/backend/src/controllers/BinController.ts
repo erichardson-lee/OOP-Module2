@@ -8,7 +8,7 @@ export type BinTestData = TestData<Bin, CreateBinDto, UpdateBinDto>;
 
 
 export class BinController extends Controller<Bin, CreateBinDto, UpdateBinDto> {
-  model: Prisma.BinDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
+  private model: Prisma.BinDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
 
   constructor(prisma?: PrismaClient) {
     super(prisma);

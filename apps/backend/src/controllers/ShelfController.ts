@@ -7,7 +7,7 @@ export interface UpdateShelfDto extends Partial<CreateShelfDto> { }
 export type ShelfTestData = TestData<Shelf, CreateShelfDto, UpdateShelfDto>;
 
 export class ShelfController extends Controller<Shelf, CreateShelfDto, UpdateShelfDto> {
-  model: Prisma.ShelfDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
+  private model: Prisma.ShelfDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
 
   constructor(prisma?: PrismaClient) {
     super(prisma)

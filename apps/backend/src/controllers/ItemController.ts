@@ -7,7 +7,7 @@ export interface UpdateItemDto extends Partial<CreateItemDto> { }
 export type ItemTestData = TestData<Item, CreateItemDto, UpdateItemDto>;
 
 export class ItemController extends Controller<Item, CreateItemDto, UpdateItemDto> {
-  model: Prisma.ItemDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
+  private model: Prisma.ItemDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
 
   constructor(prisma?: PrismaClient) {
     super(prisma)
