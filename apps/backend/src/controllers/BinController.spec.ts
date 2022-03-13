@@ -1,6 +1,5 @@
-import { Bin } from "@prisma/client";
 import { BinController, BinTestData } from "./BinController";
-import { Context, MockContext, createMockContext } from './context'
+import { Context, MockContext, createMockContext } from '../context'
 import { TestData } from "./testData";
 
 const TestData = <BinTestData>({

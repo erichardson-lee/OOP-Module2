@@ -1,7 +1,5 @@
 import express from 'express'
-import { ItemController } from './itemController';
-import { BinController } from './binController';
-import { ShelfController } from './shelfController';
+import * as Controllers from './controllers';
 import { PrismaClient } from '@prisma/client';
 
 main();
@@ -16,9 +14,9 @@ async function main() {
   await client.$connect();
   console.log("Connected to database");
 
-  const binController = new BinController(client);
-  const shelfController = new ShelfController(client);
-  const itemController = new ItemController(client);
+  const binController = new Controllers.BinController(client);
+  const shelfController = new Controllers.ShelfController(client);
+  const itemController = new Controllers.ItemController(client);
 
   app.get('/', (_req, res) => res.json('Hello world'));
 
