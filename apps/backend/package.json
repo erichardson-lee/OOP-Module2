@@ -4,7 +4,8 @@
   "scripts": {
     "build": "tsc",
     "start": "dist/index.js",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "prisma": "prisma"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

@@ -10,7 +10,8 @@
 
 <style scoped>
 .scrollbox {
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: fit-content;
 }
 </style>

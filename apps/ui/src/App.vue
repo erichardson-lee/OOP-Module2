@@ -1,34 +1,13 @@
 <script setup lang="ts">
-import { Item } from './data/items';
+import { ItemController } from './data/itemController';
 import ItemCard from './components/ItemCard.vue';
 import ScrollBox from './components/ScrollBox.vue';
+import { Ref } from 'vue';
+import { Item } from './data/dbModels';
 
-const items: Item[] = [
-  {
-    id: 'e5202b24-934a-4704-b76f-a94d426191ab',
-    name: 'Item 1',
-    description: 'This is item 1',
-    weight: 0.89
-  },
-  {
-    id: '7ff1b286-d0a3-4be7-ae1d-8089d26762c0',
-    name: 'Item 2',
-    description: 'This is item 2',
-    weight: 0.5619
-  },
-  {
-    id: 'f8f8f8f8-f8f8-f8f8-f8f8-f8f8f8f8f8f8',
-    name: 'Item 3',
-    description: 'This is item 3',
-    weight: 0.71589
-  },
-  {
-    id: '49098688-1dff-4e36-8b14-786cb35da9a3',
-    name: 'Item 4',
-    description: 'This is item 4',
-    weight: 0.8567
-  }
-];
+const itemController = ItemController.getInstance();
+
+const items: Ref<Item[]> = itemController.getItems();
 
 </script>
 

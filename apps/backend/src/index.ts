@@ -22,9 +22,9 @@ async function main() {
 
   app.get('/', (_req, res) => res.json('Hello world'));
 
-  app.use('/bins', binController.getRouter());
-  app.use('/shelves', shelfController.getRouter());
-  app.use('/items', itemController.getRouter());
+  app.use('/api/bins', binController.getRouter());
+  app.use('/api/shelves', shelfController.getRouter());
+  app.use('/api/items', itemController.getRouter());
 
 
   app.listen(3002, () => console.log("Server started on port 3002"));

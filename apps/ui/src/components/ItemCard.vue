@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <span class="name">{{ item.name }}</span>
-    <span class="desc">{{ item.description }}</span>
+    <!-- <span class="desc">{{ item.description }}</span> -->
     <span class="weight">{{ item.weight }}</span>
     <div class="buttons">
       <button class="btn" @click="onClick">Edit</button>
@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, PropType } from 'vue'
-import { Item } from '../data/items';
+import { PropType } from 'vue'
+import type { Item } from '../data/dbModels';
 
 const props = defineProps(
   {
@@ -22,6 +22,8 @@ const props = defineProps(
     },
   },
 );
+
+const onClick = () => console.log("ping")
 
 </script>
 
