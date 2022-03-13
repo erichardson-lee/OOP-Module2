@@ -2,6 +2,8 @@ import { Bin, Prisma, PrismaClient } from '@prisma/client'
 import bodyParser from 'body-parser';
 import { Router } from 'express';
 
+export interface CreateBinDto extends Omit<Bin, 'id' | 'createdAt' | 'updatedAt'> { }
+export interface UpdateBinDto extends Partial<CreateBinDto> { }
 
 export class BinController {
   model: Prisma.BinDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
@@ -18,11 +20,11 @@ export class BinController {
     return this.model.findUnique({ where: { id } });
   }
 
-  create(data: Bin) {
+  create(data: CreateBinDto) {
     return this.model.create({ data });
   }
 
-  update(id: number, data: Bin) {
+  update(id: number, data: UpdateBinDto) {
     return this.model.update({ data, where: { id } })
   }
 
