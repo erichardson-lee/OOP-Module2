@@ -4,6 +4,7 @@
   "packageManager": "yarn@3.1.1",
   "scripts": {
     "build": "turbo run build",
+    "start": "turbo run start",
     "test": "turbo run test",
     "lint": "eslint '{apps,libs}/**/src/**/*.{js,ts,vue}'",
     "lint:dependencies": "check-dependency-version-consistency .",
