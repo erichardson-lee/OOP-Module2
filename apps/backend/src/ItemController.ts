@@ -1,7 +1,11 @@
 import { Item, Prisma, PrismaClient } from '@prisma/client'
 import bodyParser from 'body-parser';
 import { Router } from 'express';
+import { TestData } from './testData';
 
+export interface CreateItemDto extends Omit<Item, 'id' | 'createdAt' | 'updatedAt'> { }
+export interface UpdateItemDto extends Partial<CreateItemDto> { }
+export type ItemTestData = TestData<Item, CreateItemDto, UpdateItemDto>;
 
 export class ItemController {
   model: Prisma.ItemDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
@@ -18,11 +22,11 @@ export class ItemController {
     return this.model.findUnique({ where: { id } });
   }
 
-  async create(data: Item) {
+  async create(data: CreateItemDto) {
     return this.model.create({ data });
   }
 
-  async update(id: number, data: Item) {
+  async update(id: number, data: UpdateItemDto) {
     return this.model.update({ data, where: { id } })
   }
 
