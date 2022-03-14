@@ -52,7 +52,7 @@ export class RestController<Entity = any, CreateEntityDto = Entity, UpdateEntity
     this.loadAll()
   }
 
-  public async update(id: string | number, entity: Entity): Promise<void> {
+  public async update(id: string | number, entity: UpdateEntityDto): Promise<void> {
     await fetch(`/api/${this.entityName}/${id}`, {
       method: 'PUT',
       headers: {

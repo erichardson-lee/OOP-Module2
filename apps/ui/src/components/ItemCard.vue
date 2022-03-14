@@ -14,29 +14,7 @@
       v-if="editMode"
       class="w-screen h-screen absolute bottom-0 left-0 bg-transparent flex items-center justify-center"
     >
-      <div class="bg-white block rounded border-1 text-black pa-lg w-1/2">
-        <span class="block text-center">Edit {{ item.name }}</span>
-
-        <div>
-          <label class="block" for="name">Name</label>
-          <input class="block w-full" id="name" v-model="item.name" />
-        </div>
-
-        <div>
-          <label class="block" for="description">Description</label>
-          <textarea class="block w-full resize-y" id="description" v-model="item.description" />
-        </div>
-
-        <div>
-          <label class="block" for="weight">Weight</label>
-          <input class="block w-full" id="weight" type="number" v-model.number="item.weight" />
-        </div>
-
-        <div class="flex justify-around mt-sm">
-          <button @click="saveClick" class="btn">Save</button>
-          <button @click="closeClick" class="btn">Close</button>
-        </div>
-      </div>
+      <item-editor @close="() => editMode = false" :item="item" />
     </div>
   </teleport>
 </template>
@@ -45,6 +23,7 @@
 import { PropType, ref } from 'vue'
 import type { Item } from '../data/dbModels';
 import { ItemController } from '../data/ItemController';
+import ItemEditor from './ItemEditor.vue';
 
 const itemController = ItemController.getInstance();
 
@@ -57,13 +36,10 @@ const props = defineProps(
   },
 );
 
-const editClick = () => editMode.value = !editMode.value;
-const deleteClick = () => itemController.delete(props.item.id);
-
-const saveClick = () => itemController.update(props.item.id, props.item).then(() => editMode.value = false);
-const closeClick = () => editMode.value = false;
-
 const editMode = ref(false);
+
+const editClick = () => editMode.value = true;
+const deleteClick = () => itemController.delete(props.item.id);
 </script>
 
 <style scoped>

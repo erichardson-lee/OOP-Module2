@@ -3,8 +3,8 @@ import { ItemController } from './data/ItemController';
 import { ShelfController } from './data/ShelfController'
 
 import ItemCard from './components/ItemCard.vue';
+import ItemEditor from './components/ItemEditor.vue';
 import ScrollBox from './components/ScrollBox.vue';
-
 
 import { ref, Ref } from 'vue';
 import { Item } from './data/dbModels';
@@ -19,11 +19,15 @@ const currentShelf = ref(0);
 
 const items: Ref<Item[]> = itemController.findAll();
 
+const addItemMenu = ref(false);
+const openAddItem = () => addItemMenu.value = true;
+
 </script>
 
 <template>
   <div id="itemList" class="grid-item column">
     <h1>Item List</h1>
+    <button @click="openAddItem" class="btn">Add Item</button>
     <scroll-box style="height: 90%">
       <item-card v-for="item in items" :item="item" :key="item.id" />
     </scroll-box>
@@ -45,6 +49,15 @@ const items: Ref<Item[]> = itemController.findAll();
     <hr />
     <shelf-view :shelf="shelfs[currentShelf]" :key="currentShelf" />
   </div>
+
+  <teleport to="#modals">
+    <div
+      v-if="addItemMenu"
+      class="w-screen h-screen absolute bottom-0 left-0 bg-transparent flex items-center justify-center"
+    >
+      <item-editor @close="() => addItemMenu = false" />
+    </div>
+  </teleport>
 </template>
 
 <style src="./app.css">
